@@ -6,6 +6,6 @@ services:
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE
-        value: postgresql://postgres:rovwur-kosvit-kAvxo9@db.ychvlrdqhwdnrwbqiceb.supabase.co:6543/postgres
+        value: postgresql+psycopg://postgres:rovwur-kosvit-kAvxo9@db.ychvlrdqhwdnrwbqiceb.supabase.co:6543/postgres
       - key: PYTHON_VERSION
         value: 3.11.0
