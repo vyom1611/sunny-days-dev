@@ -9,13 +9,18 @@ from schemas import ActivityOut, SaveParticipantsRequest, SaveParticipantsRespon
 from typing import Literal
 from io import BytesIO
 import re
+import os
 from copy import deepcopy
 from datetime import date as dt_date
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
 
-app = FastAPI(title="Activity Participation API")
+app = FastAPI(
+    title="Activity Participation API",
+    docs_url="/docs" if os.getenv("VERCEL_ENV") != "production" else None,
+    redoc_url="/redoc" if os.getenv("VERCEL_ENV") != "production" else None,
+)
 
 # CORS (adjust origins for your frontend)
 app.add_middleware(
@@ -26,10 +31,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Lazy table creation to avoid cold start delays
+def ensure_tables():
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"Table creation warning: {e}")
+
 # Create tables on startup (avoid work at import-time in serverless)
 @app.on_event("startup")
 def _on_startup():
-    Base.metadata.create_all(bind=engine)
+    # Skip table creation in serverless to reduce cold start time
+    # Tables should already exist from migration
+    pass
+
+
+@app.get("/health")
+def health_check():
+    """Simple health check endpoint for Vercel"""
+    return {"status": "ok", "service": "activity-participation-api"}
 
 
 @app.get("/rooms", response_model=list[int])
