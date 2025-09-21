@@ -1,6 +1,4 @@
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
-
-from urllib.parse import quote_plus
 from sqlalchemy import create_engine
 
 from dotenv import load_dotenv
@@ -9,12 +7,10 @@ import os
 load_dotenv()
 
 DATABASE_URL = os.environ.get("DATABASE")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE environment variable is required")
 
-odbc_str = DATABASE_URL
-
-sqlalchemy_url = "mssql+pyodbc:///?odbc_connect=" + quote_plus(odbc_str)
-
-engine = create_engine(sqlalchemy_url, pool_pre_ping=True, fast_executemany=True)
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

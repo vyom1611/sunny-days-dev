@@ -20,14 +20,16 @@ app = FastAPI(title="Activity Participation API")
 # CORS (adjust origins for your frontend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1):\d+",
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1):\d+|https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Create tables
-Base.metadata.create_all(bind=engine)
+# Create tables on startup (avoid work at import-time in serverless)
+@app.on_event("startup")
+def _on_startup():
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/rooms", response_model=list[int])
