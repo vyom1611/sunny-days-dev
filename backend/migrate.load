@@ -1,0 +1,20 @@
+LOAD DATABASE
+     FROM mssql://vyomarunadmin:guxju0-rembix-netSyp@database-sunnydays-server1.database.windows.net:1433/sunnydays-vyom-v1?encrypt=true&trustservercertificate=false
+     INTO postgresql://postgres:rovwur-kosvit-kAvxo9@db.ychvlrdqhwdnrwbqiceb.supabase.co:5432/postgres?sslmode=require
+
+ WITH include drop, create tables, create indexes, reset sequences,
+      workers = 8, concurrency = 4, batch rows = 50000, on error stop
+
+ SET work_mem to '128MB', maintenance_work_mem to '512MB', lock_timeout to '120s',
+     statement_timeout to '0'
+
+ CAST
+      type datetime2       to timestamp using default,
+      type datetime        to timestamp using default,
+      type smalldatetime   to timestamp using default,
+      type uniqueidentifier to uuid using "uuid",
+      type bit             to boolean using boolean,
+      type varbinary       to bytea using bytea
+
+ BEFORE LOAD DO
+ $$ SET search_path TO public; $$;

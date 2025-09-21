@@ -1,0 +1,78 @@
+.file-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.5rem; /* p-6 */
+  cursor: pointer;
+  transition: border-color 0.2s;
+  background-color: white;
+}
+
+.file-input-container:hover {
+  border-color: #3b82f6; /* blue-500 */
+}
+
+.file-input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #6b7280; /* gray-500 */
+}
+
+.file-input-icon {
+  width: 2.5rem; /* w-10 */
+  height: 2.5rem; /* h-10 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+.file-input-text {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+}
+
+.file-input-hint {
+  font-size: 0.75rem; /* text-xs */
+}
+
+.file-input {
+  display: none;
+}
+
+.file-display-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;
+  background-color: #f9fafb; /* gray-50 */
+}
+
+.file-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937; /* gray-800 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: #ef4444; /* red-500 */
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.clear-button:hover {
+  color: #dc2626; /* red-600 */
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="1.0.0" />
+  <PropertyGroup>
+    <Name>DatabaseProjectsunnydays-vyom-v1</Name>
+    <ProjectGuid>{6B358433-CCAD-44F9-9E11-CC7AE6D14A15}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".vscode\tasks.json" />
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+</Project>
